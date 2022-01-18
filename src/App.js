@@ -1,12 +1,12 @@
 import { Box, CssBaseline, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Search from "./components/Search";
-import useFetch from "./hooks/useFetch";
+import useBreweries from "./hooks/useBreweries";
 
 const theme = createTheme();
 
 function App() {
-  const { data } = useFetch("https://api.openbrewerydb.org/breweries");
+  const { data } = useBreweries();
 
   console.log({ data });
 
