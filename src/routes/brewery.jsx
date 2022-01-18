@@ -3,6 +3,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn'
 import PhoneIcon from '@mui/icons-material/Phone'
 import { Box, Button, CircularProgress, Link, Typography } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
+import BreweryType from '../components/BreweryType'
 import useBreweryById from '../hooks/useBreweryById'
 
 const Brewery = () => {
@@ -72,16 +73,12 @@ const Brewery = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-      <Typography
-        variant="overline"
-        color="grey.500"
-        sx={{ lineHeight: 1, fontWeight: 'bold' }}
-      >
-        {brewery_type}
-      </Typography>
-      <Typography variant="h4" component="h1" gutterBottom>
-        {name}
-      </Typography>
+      <Box>
+        <BreweryType>{brewery_type}</BreweryType>
+        <Typography variant="h4" component="h1" gutterBottom>
+          {name}
+        </Typography>
+      </Box>
 
       {address ? (
         <Link
