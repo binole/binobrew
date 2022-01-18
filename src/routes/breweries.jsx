@@ -1,9 +1,9 @@
-import { Typography } from '@mui/material'
 import { useCallback } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import BreweryItem from '../components/BreweryItem'
 import BreweryList from '../components/BreweryList'
 import ErrorFallback from '../components/ErrorFallback'
+import Logo from '../components/Logo'
 import Search from '../components/Search'
 import useBreweries from '../hooks/useBreweries'
 
@@ -22,7 +22,8 @@ const Breweries = () => {
 
   return (
     <>
-      <Typography variant="h1">Brewery</Typography>
+      <Logo />
+
       <Search query={searchParams.get('query')} onSubmit={handleSearch} />
 
       {status === 'error' ? (
