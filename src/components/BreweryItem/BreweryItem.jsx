@@ -1,7 +1,8 @@
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import { Card, CardContent, Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
 
-const BreweryItem = ({ type, name, country, ...props }) => {
+const BreweryItem = ({ id, type, name, country, ...props }) => {
   return (
     <Card {...props}>
       <CardContent>
@@ -12,9 +13,24 @@ const BreweryItem = ({ type, name, country, ...props }) => {
         >
           {type}
         </Typography>
-        <Typography variant="h6" component="h2" gutterBottom>
+
+        <Typography
+          variant="h6"
+          component={Link}
+          to={`/breweries/${id}`}
+          gutterBottom
+          sx={{
+            display: 'block',
+            color: 'primary.main',
+            textDecoration: 'none',
+            ':hover': {
+              textDecoration: 'underline',
+            },
+          }}
+        >
           {name}
         </Typography>
+
         <Typography
           variant="body2"
           gutterBottom

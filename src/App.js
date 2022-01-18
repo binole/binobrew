@@ -1,22 +1,10 @@
-import { Container, CssBaseline, Typography } from "@mui/material";
+import { Container, CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useCallback, useState } from "react";
-import BreweryItem from "./components/BreweryItem";
-import BreweryList from "./components/BreweryList";
-import ErrorFallback from "./components/ErrorFallback";
-import Search from "./components/Search";
-import useBreweries from "./hooks/useBreweries";
+import { Outlet } from "react-router-dom";
 
 const theme = createTheme();
 
 function App() {
-  const [query, setQuery] = useState("");
-  const { status, refetch, data: items } = useBreweries({ query });
-
-  const handleSearch = useCallback((term) => {
-    setQuery(term);
-  }, []);
-
   return (
     <>
       <CssBaseline />
@@ -29,24 +17,7 @@ function App() {
             py: [4, 8],
           }}
         >
-          <Typography variant="h1">Brewery</Typography>
-          <Search onSubmit={handleSearch} />
-
-          {status === "error" ? (
-            <ErrorFallback retry={refetch} />
-          ) : (
-            <BreweryList
-              loading={status !== "success"}
-              items={items}
-              renderItem={({ name, brewery_type, country }) => (
-                <BreweryItem
-                  name={name}
-                  type={brewery_type}
-                  country={country}
-                />
-              )}
-            />
-          )}
+          <Outlet />
         </Container>
       </ThemeProvider>
     </>
