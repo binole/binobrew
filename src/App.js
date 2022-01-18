@@ -3,6 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useCallback, useState } from "react";
 import BreweryItem from "./components/BreweryItem";
 import BreweryList from "./components/BreweryList";
+import ErrorFallback from "./components/ErrorFallback";
 import Search from "./components/Search";
 import useBreweries from "./hooks/useBreweries";
 
@@ -10,7 +11,7 @@ const theme = createTheme();
 
 function App() {
   const [query, setQuery] = useState("");
-  const { status, data: items } = useBreweries({ query });
+  const { status, refetch, data: items } = useBreweries({ query });
 
   const handleSearch = useCallback((term) => {
     setQuery(term);
@@ -31,13 +32,21 @@ function App() {
           <Typography variant="h1">Brewery</Typography>
           <Search onSubmit={handleSearch} />
 
-          <BreweryList
-            loading={status !== "success"}
-            items={items}
-            renderItem={({ name, brewery_type, country }) => (
-              <BreweryItem name={name} type={brewery_type} country={country} />
-            )}
-          />
+          {status === "error" ? (
+            <ErrorFallback retry={refetch} />
+          ) : (
+            <BreweryList
+              loading={status !== "success"}
+              items={items}
+              renderItem={({ name, brewery_type, country }) => (
+                <BreweryItem
+                  name={name}
+                  type={brewery_type}
+                  country={country}
+                />
+              )}
+            />
+          )}
         </Container>
       </ThemeProvider>
     </>
