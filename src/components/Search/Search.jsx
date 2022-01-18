@@ -1,7 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search'
 import { Box, IconButton, InputBase } from '@mui/material'
 
-const Search = ({ onSubmit }) => {
+const Search = ({ query, onSubmit }) => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -34,6 +34,7 @@ const Search = ({ onSubmit }) => {
         placeholder="Search Brewery"
         inputProps={{ 'aria-label': 'Search Brewery' }}
         id="term"
+        defaultValue={query}
       />
       <IconButton type="submit" aria-label="search" size="large">
         <SearchIcon />

@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import BreweryItem from '../components/BreweryItem'
 import BreweryList from '../components/BreweryList'
 import ErrorFallback from '../components/ErrorFallback'
@@ -7,17 +8,22 @@ import Search from '../components/Search'
 import useBreweries from '../hooks/useBreweries'
 
 const Breweries = () => {
-  const [query, setQuery] = useState('')
-  const { status, refetch, data: items } = useBreweries({ query })
+  const [searchParams, setSearchParams] = useSearchParams()
+  const { status, refetch, data: items } = useBreweries({
+    query: searchParams.get('query'),
+  })
 
-  const handleSearch = useCallback((term) => {
-    setQuery(term)
-  }, [])
+  const handleSearch = useCallback(
+    (term) => {
+      setSearchParams({ query: term })
+    },
+    [setSearchParams],
+  )
 
   return (
     <>
       <Typography variant="h1">Brewery</Typography>
-      <Search onSubmit={handleSearch} />
+      <Search query={searchParams.get('query')} onSubmit={handleSearch} />
 
       {status === 'error' ? (
         <ErrorFallback retry={refetch} />
