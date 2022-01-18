@@ -1,9 +1,19 @@
 import SearchIcon from '@mui/icons-material/Search'
 import { Box, IconButton, InputBase } from '@mui/material'
 
-const Search = () => {
+const Search = ({ onSubmit }) => {
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    if (typeof onSubmit === 'function') {
+      onSubmit(event.target.term.value)
+    }
+  }
+
   return (
     <Box
+      component="form"
+      onSubmit={handleSubmit}
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -22,6 +32,7 @@ const Search = () => {
         sx={{ ml: 1, flex: 1 }}
         placeholder="Search Brewery"
         inputProps={{ 'aria-label': 'Search Brewery' }}
+        id="term"
       />
       <IconButton type="submit" aria-label="search" size="large">
         <SearchIcon />

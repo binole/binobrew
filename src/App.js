@@ -1,5 +1,6 @@
 import { Container, CssBaseline, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useCallback, useState } from "react";
 import BreweryItem from "./components/BreweryItem";
 import BreweryList from "./components/BreweryList";
 import Search from "./components/Search";
@@ -8,7 +9,12 @@ import useBreweries from "./hooks/useBreweries";
 const theme = createTheme();
 
 function App() {
-  const { data: items } = useBreweries();
+  const [query, setQuery] = useState("");
+  const { data: items } = useBreweries({ query });
+
+  const handleSearch = useCallback((term) => {
+    setQuery(term);
+  }, []);
 
   return (
     <>
@@ -23,7 +29,7 @@ function App() {
           }}
         >
           <Typography variant="h1">Brewery</Typography>
-          <Search />
+          <Search onSubmit={handleSearch} />
           {items?.length ? (
             <BreweryList
               items={items}
