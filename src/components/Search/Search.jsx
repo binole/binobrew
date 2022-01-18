@@ -35,6 +35,7 @@ const Search = ({ query, onSubmit }) => {
         inputProps={{ 'aria-label': 'Search Brewery' }}
         id="term"
         defaultValue={query}
+        type="search"
       />
       <IconButton type="submit" aria-label="search" size="large">
         <SearchIcon />
