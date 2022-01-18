@@ -22,6 +22,7 @@ const Search = ({ onSubmit }) => {
         pl: 1,
         width: 480,
         mt: 4,
+        mb: 4,
         maxWidth: '100%',
         ':focus-within': {
           boxShadow: (theme) => `0 0 0 2px ${theme.palette.primary.main}`,

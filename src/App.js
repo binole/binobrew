@@ -30,6 +30,7 @@ function App() {
         >
           <Typography variant="h1">Brewery</Typography>
           <Search onSubmit={handleSearch} />
+
           <BreweryList
             loading={status !== "success"}
             items={items}

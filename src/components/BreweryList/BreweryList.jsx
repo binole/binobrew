@@ -1,8 +1,13 @@
 import { Grid, Skeleton } from '@mui/material'
+import Empty from '../Empty'
 
 const BreweryList = ({ loading, renderItem, items = [] }) => {
+  if (!loading && items?.length === 0) {
+    return <Empty />
+  }
+
   return (
-    <Grid container justifyContent="stretch" spacing={2} mt={4}>
+    <Grid container justifyContent="stretch" spacing={2}>
       {(loading ? Array.from(new Array(4)) : items).map((item, index) => {
         return (
           <Grid
