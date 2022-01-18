@@ -10,7 +10,7 @@ const theme = createTheme();
 
 function App() {
   const [query, setQuery] = useState("");
-  const { data: items } = useBreweries({ query });
+  const { status, data: items } = useBreweries({ query });
 
   const handleSearch = useCallback((term) => {
     setQuery(term);
@@ -30,18 +30,13 @@ function App() {
         >
           <Typography variant="h1">Brewery</Typography>
           <Search onSubmit={handleSearch} />
-          {items?.length ? (
-            <BreweryList
-              items={items}
-              renderItem={({ name, brewery_type, country }) => (
-                <BreweryItem
-                  name={name}
-                  type={brewery_type}
-                  country={country}
-                />
-              )}
-            />
-          ) : null}
+          <BreweryList
+            loading={status !== "success"}
+            items={items}
+            renderItem={({ name, brewery_type, country }) => (
+              <BreweryItem name={name} type={brewery_type} country={country} />
+            )}
+          />
         </Container>
       </ThemeProvider>
     </>
