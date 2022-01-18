@@ -1,31 +1,42 @@
-import { Box, CssBaseline, Typography } from "@mui/material";
+import { Container, CssBaseline, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import BreweryItem from "./components/BreweryItem";
+import BreweryList from "./components/BreweryList";
 import Search from "./components/Search";
 import useBreweries from "./hooks/useBreweries";
 
 const theme = createTheme();
 
 function App() {
-  const { data } = useBreweries();
-
-  console.log({ data });
+  const { data: items } = useBreweries();
 
   return (
     <>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <Box
+        <Container
           sx={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            maxWidth: "100%",
-            px: 2,
+            py: [4, 8],
           }}
         >
           <Typography variant="h1">Brewery</Typography>
           <Search />
-        </Box>
+          {items?.length ? (
+            <BreweryList
+              items={items}
+              renderItem={({ name, brewery_type, country }) => (
+                <BreweryItem
+                  name={name}
+                  type={brewery_type}
+                  country={country}
+                />
+              )}
+            />
+          ) : null}
+        </Container>
       </ThemeProvider>
     </>
   );
