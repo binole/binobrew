@@ -8,7 +8,33 @@ import useBreweryById from '../hooks/useBreweryById'
 const Brewery = () => {
   const navigate = useNavigate()
   const params = useParams()
-  const { data } = useBreweryById(params.breweryId)
+  const { data, error } = useBreweryById(params.breweryId)
+
+  const goBack = () => {
+    navigate(-1)
+  }
+
+  if (error) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          alignItems: 'center',
+        }}
+      >
+        <Typography variant="h4" component="h1">
+          {error.message}
+        </Typography>
+        <Box mt={4} textAlign="center">
+          <Button variant="contained" onClick={goBack}>
+            Go back
+          </Button>
+        </Box>
+      </Box>
+    )
+  }
 
   if (!data) {
     return (
@@ -43,10 +69,6 @@ const Brewery = () => {
   ]
     .filter(Boolean)
     .join(', ')
-
-  const goBack = () => {
-    navigate(-1)
-  }
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
