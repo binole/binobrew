@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import NoMatch from "./routes/404";
 import Breweries from "./routes/breweries";
 import Brewery from "./routes/brewery";
 
@@ -14,6 +15,7 @@ ReactDOM.render(
         <Route index element={<Breweries />} />
         <Route path="/breweries" element={<Breweries />} />
         <Route path="/breweries/:breweryId" element={<Brewery />} />
+        <Route path="*" element={<NoMatch />} />
       </Route>
     </Routes>
   </BrowserRouter>,
