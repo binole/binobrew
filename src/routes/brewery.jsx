@@ -1,7 +1,7 @@
 import LinkIcon from '@mui/icons-material/Link'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import PhoneIcon from '@mui/icons-material/Phone'
-import { Box, Button, Link, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Link, Typography } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import useBreweryById from '../hooks/useBreweryById'
 
@@ -11,7 +11,11 @@ const Brewery = () => {
   const { data } = useBreweryById(params.breweryId)
 
   if (!data) {
-    return <div>Loading...</div>
+    return (
+      <Box sx={{ display: 'flex', minHeight: '100vh', alignItems: 'center' }}>
+        <CircularProgress />
+      </Box>
+    )
   }
 
   const {
